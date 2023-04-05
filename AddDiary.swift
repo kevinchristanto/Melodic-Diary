@@ -35,6 +35,8 @@ struct AddDiary: View {
                     
                     //append into array
                     
+                    //navigate to view-music
+                    
                 }.padding(10)
                 .background(Color("darkblue"))
                 .cornerRadius(11)

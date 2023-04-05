@@ -24,6 +24,7 @@ struct ContentView: View {
                 
             }.background(Color("yellow"))
         }
+//.navigationViewStyle(StackNavigationViewStyle()) kalau mau diilangin sidebar di swiftplayground
         
     }
     
