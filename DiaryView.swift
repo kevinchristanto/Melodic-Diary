@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct DiaryView: View {
+    
+    @State var emoji = "😊"
+    
     var body: some View {
         HStack{
             VStack(alignment: .leading){
@@ -21,22 +24,24 @@ struct DiaryView: View {
             }.padding(.bottom, -3)
             
             VStack(alignment: .trailing){
-                Text("😊")
+                Text("\(emoji)")
                 Spacer()
                 Button("View Songs"){
+                    
                     //navigation link to view-music page
+                    
                 }.padding(3)
                     .background(Color(.systemBlue))
                     .cornerRadius(3)
                     .foregroundColor(.white)
-                    .font(.caption)
+                    .font(.caption2)
             }
         }
         .padding(10)
         .frame(maxWidth: .infinity, maxHeight: 100)
         .background(Color(.white))
         .cornerRadius(8)
-        .padding(15)
+        .padding(.horizontal, 20)
         .shadow(radius: 5)
         .navigationTitle("Melodic Diary")
     }

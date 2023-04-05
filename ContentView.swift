@@ -4,22 +4,24 @@ import NaturalLanguage
 struct ContentView: View {
     var body: some View {
         NavigationView{
-            VStack{
+            VStack(spacing:16){
+                
+                // loop if there is any diary
                 DiaryView()
                 DiaryView()
                 DiaryView()
+                
                 Spacer()
-                Button(){
-                    //navigation link to add-diary page
-                }label: {
+                
+                NavigationLink(destination: AddDiary()) {
                     Text("Tell me about your day")
                         .fontWeight(.bold)
                         .frame(maxWidth: 222, maxHeight: 5)
-                }
-                .padding()
-                .foregroundColor(.white)
-                .background(Color("pink"))
-                .cornerRadius(8)
+                }                .padding()
+                    .foregroundColor(.white)
+                    .background(Color("pink100"))
+                    .cornerRadius(8)
+                
             }.background(Color("yellow"))
         }
         
