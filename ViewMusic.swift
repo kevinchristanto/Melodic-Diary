@@ -32,49 +32,7 @@ struct ViewMusic: View {
                     .foregroundColor(Color("darkblue"))
                     .padding(.bottom, 47)
                 
-                HStack{
-                    Image("song-1")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .padding(.leading, 15)
-                    
-                    VStack {
-                        VStack(alignment: .leading) {
-                            
-                            Text("Cheating on you") //song title
-                                .font(.system(size: 16))
-                                .fontWeight(.medium)
-                                .padding(.top, 10)
-                            
-                            Text("Charlie puth") //song artist
-                                .font(.caption)
-                                .fontWeight(.light)
-                            
-                            Spacer()
-                        }
-                        
-                        
-                    }
-                    
-                    Spacer()
-                    
-                    VStack {
-                        Spacer()
-                        Button("Play Music") {
-                            
-                        }
-                        .padding(3)
-                            .background(Color("pink100"))
-                            .cornerRadius(3)
-                            .foregroundColor(.white)
-                            .font(.system(size: 10, weight: Font.Weight.medium))
-                        .padding()
-                    }
-                    
-                }
-                .frame(width: 310, height: 75)
-                .background(Color(.white))
-                .cornerRadius(11)
+                resultCard()
                 
                 Spacer()
                 
@@ -86,5 +44,53 @@ struct ViewMusic: View {
 struct ViewMusic_Previews: PreviewProvider {
     static var previews: some View {
         ViewMusic()
+    }
+}
+
+struct resultCard: View {
+    var body: some View {
+        HStack{
+            Image("song-1")
+                .resizable()
+                .frame(width: 50, height: 50)
+                .padding(.leading, 15)
+            
+            VStack {
+                VStack(alignment: .leading) {
+                    
+                    Text("Cheating on you") //song title
+                        .font(.system(size: 16))
+                        .fontWeight(.medium)
+                        .padding(.top, 10)
+                    
+                    Text("Charlie puth") //song artist
+                        .font(.caption)
+                        .fontWeight(.light)
+                    
+                    Spacer()
+                }
+                
+                
+            }
+            
+            Spacer()
+            
+            VStack {
+                Spacer()
+                Button("Play Music") {
+                    
+                }
+                .padding(3)
+                .background(Color("pink100"))
+                .cornerRadius(3)
+                .foregroundColor(.white)
+                .font(.system(size: 10, weight: Font.Weight.medium))
+                .padding()
+            }
+            
+        }
+        .frame(width: 310, height: 75)
+        .background(Color(.white))
+        .cornerRadius(11)
     }
 }
