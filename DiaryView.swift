@@ -31,10 +31,10 @@ struct DiaryView: View {
                     //navigation link to view-music page
                     
                 }.padding(3)
-                    .background(Color(.systemBlue))
+                    .background(Color("darkblue"))
                     .cornerRadius(3)
                     .foregroundColor(.white)
-                    .font(.caption2)
+                    .font(.system(size: 10, weight: Font.Weight.semibold))
             }
         }
         .padding(10)
