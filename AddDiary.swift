@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct AddDiary: View {
+//    @State var diaryArray: [Diary]?
     
     @State var textFieldText = ""
+    
     
     var body: some View {
         ZStack{
@@ -30,14 +32,20 @@ struct AddDiary: View {
                     .frame(width: 260, height: max(30,300))
                     .padding()
                     .colorMultiply(Color("grey"))
-                                
-                Button("Play me some music"){
                     
-                    //append into array
-                    
-                    //navigate to view-music
-                    
-                }.padding(10)
+                //append into array
+                //navigate to view-music
+                NavigationLink(destination: ViewMusic().onAppear(){
+                    // blm ada nlp, emojinya masih hardcode
+//                    diaryArray?.append(Diary(date: Date(), journal: textFieldText, emoji: "😌", songs: kSadSongs))
+                    allDiary.append(Diary(date: Date(), journal: textFieldText, emoji: "😌", songs: kSadSongs))
+                    print("Berhasil onappear cok !")
+                }) {
+                    Text("Play me some music")
+                        .fontWeight(.bold)
+                        .frame(maxWidth: 222, maxHeight: 5)
+                }
+                .padding(10)
                 .background(Color("darkblue"))
                 .cornerRadius(11)
                 .foregroundColor(.white)

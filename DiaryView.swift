@@ -9,16 +9,18 @@ import SwiftUI
 
 struct DiaryView: View {
     
+    @State var textDiary = ""
+    @State var dateDiary = ""
     @State var emoji = "😊"
     
     var body: some View {
         HStack{
             VStack(alignment: .leading){
-                Text("\(Date.getTodayName())")
+                Text("\(dateDiary)")
                     .bold()
                     .padding(.bottom, -2)
                 
-                Text("WWDC 2023 swift student challenge is announced today. We are very excited and looking forward to explore any ideas to submit into WWDC.")
+                Text(textDiary)
                     .font(.caption2)
                 
             }.padding(.bottom, -3)

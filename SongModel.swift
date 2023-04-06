@@ -6,10 +6,10 @@
 //
 
 import Foundation
+import AVKit
 
 struct Songs {
     let title: String
     let artist: String
-    
-    // add variabel for music or mp3
+    let music: AVAudioPlayer
 }

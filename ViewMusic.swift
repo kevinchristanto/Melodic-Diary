@@ -36,6 +36,14 @@ struct ViewMusic: View {
                 
                 Spacer()
                 
+                NavigationLink(destination: ContentView()) {
+                    Text("Back to Homepage")
+                        .fontWeight(.bold)
+                        .frame(maxWidth: 222, maxHeight: 5)
+                }   .padding()
+                    .foregroundColor(Color("darkblue"))
+                    .background(Color("yellow"))
+                    .cornerRadius(8)
             }
         }
     }

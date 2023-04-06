@@ -12,7 +12,5 @@ struct Diary: Identifiable {
     let date: Date
     let journal: String
     let emoji: String
-    
-    // add button in struct
-    
+    let songs: [Songs]    
 }
