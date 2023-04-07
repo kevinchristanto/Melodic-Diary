@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ViewMusic: View {
+    @Environment(\.dismiss) private var dismiss
     
     @State public var emoji: String = "😐"
+    
     
     var body: some View {
         
@@ -36,7 +38,9 @@ struct ViewMusic: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: ContentView()) {
+                Button() {
+                    dismiss()
+                }label:{
                     Text("Back to Homepage")
                         .fontWeight(.bold)
                         .frame(maxWidth: 222, maxHeight: 5)

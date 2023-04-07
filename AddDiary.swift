@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddDiary: View {
 //    @State var diaryArray: [Diary]?
+    @StateObject var diaryArray = DiaryModel()
     
     @State var textFieldText = ""
     
@@ -38,7 +39,9 @@ struct AddDiary: View {
                 NavigationLink(destination: ViewMusic().onAppear(){
                     // blm ada nlp, emojinya masih hardcode
 //                    diaryArray?.append(Diary(date: Date(), journal: textFieldText, emoji: "😌", songs: kSadSongs))
-                    allDiary.append(Diary(date: Date(), journal: textFieldText, emoji: "😌", songs: kSadSongs))
+                    self.diaryArray.objectWillChange.send()
+                    self.diaryArray.allDiary.append(Diary(date: Date(), journal: textFieldText, emoji: "😌", songs: kSadSongs))
+                    print(diaryArray.allDiary)
                     print("Berhasil onappear cok !")
                 }) {
                     Text("Play me some music")

@@ -2,33 +2,36 @@ import SwiftUI
 import NaturalLanguage
 
 
-var allDiary: [Diary] = []
+//var allDiary: [Diary] = []
 
 struct ContentView: View {
-//    @Binding var diaryArray: [Diary]
+    @StateObject var diaryArray = DiaryModel()
     
     var body: some View {
         NavigationView{
             VStack(spacing:16){
-                
-                if allDiary.isEmpty{
-                    Text("No Diary")
+                if self.diaryArray.allDiary.isEmpty{
+                    HStack{
+                        Spacer()
+                        Text("No Diary")
+                        Spacer()
+                    }
                 }
                 // loop if there is any diary
                 else{
                     List{
-                        ForEach(allDiary.indices, id: \.self){ index in
-                            DiaryView(textDiary: allDiary[index].journal, dateDiary: "\(allDiary[index].date)", emoji: allDiary[index].emoji)
+                        ForEach(self.diaryArray.allDiary.indices, id: \.self){ index in
+                            DiaryView(textDiary: self.diaryArray.allDiary[index].journal, dateDiary: "\(self.diaryArray.allDiary[index].date)", emoji: self.diaryArray.allDiary[index].emoji)
                         }
+//                        ForEach(diaryArray.allDiary){diary in
+//                            DiaryView(textDiary: diaryArray.allDiary.)
+//                        }
                     }
                 }
-//                DiaryView()
-//                DiaryView()
-//                DiaryView()
                 
                 Spacer()
                 
-                NavigationLink(destination: AddDiary()) {
+                NavigationLink(destination: AddDiary(diaryArray: self.diaryArray)) {
                     Text("Tell me about your day")
                         .fontWeight(.bold)
                         .frame(maxWidth: 222, maxHeight: 5)
@@ -37,13 +40,16 @@ struct ContentView: View {
                     .background(Color("pink100"))
                     .cornerRadius(8)
                 
-            }.background(Color("yellow"))
+            }
+            .background(Color("yellow"))
+            
+            AddDiary(diaryArray: self.diaryArray)
         }
         .onAppear(){
             kSadSongs[0].music.play()
             
         }
-//.navigationViewStyle(StackNavigationViewStyle()) kalau mau diilangin sidebar di swiftplayground
+        .navigationViewStyle(.automatic) //kalau mau diilangin sidebar di swiftplayground
         
     }
     
