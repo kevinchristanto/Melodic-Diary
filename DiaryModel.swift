@@ -12,6 +12,7 @@ struct Diary {
     let date: Date
     let journal: String
     let emoji: String
+    let score: Double
     let songs: [Songs]    
 }
 

@@ -6,12 +6,19 @@
 //
 
 import SwiftUI
+import NaturalLanguage
 
 struct AddDiary: View {
 //    @State var diaryArray: [Diary]?
     @StateObject var diaryArray = DiaryModel()
     
     @State var textFieldText = ""
+    
+//    @State private var userInput = ""
+    @State private var score = 0.0
+    @State private var sentimentEmoticon = ""
+    
+    @State var recommendedSongs: [Songs] = []
     
     
     var body: some View {
@@ -33,16 +40,28 @@ struct AddDiary: View {
                     .frame(width: 260, height: max(30,300))
                     .padding()
                     .colorMultiply(Color("grey"))
+                    .onChange(of: textFieldText) { newText in
+                        analyzeSentiment()
+                        self.diaryArray.objectWillChange.send()
+//                        var recommendedSongs = [Songs]()
+                        if score >= -1 && score <= -0.3{
+                            recommendedSongs = kSadSongs
+                        } else if score > -0.3 && score <= 0.3 {
+                            recommendedSongs = kRelaxedSongs
+                        } else {
+                            recommendedSongs = kHappySongs
+                        }
+                        self.diaryArray.allDiary.append(Diary(date: Date(), journal: textFieldText, emoji: sentimentEmoticon, score: score, songs: recommendedSongs))
+                        
+                    }
                     
                 //append into array
                 //navigate to view-music
-                NavigationLink(destination: ViewMusic().onAppear(){
+                NavigationLink(destination: ViewMusic(emoji: sentimentEmoticon, songs: recommendedSongs).onAppear(){
                     // blm ada nlp, emojinya masih hardcode
-//                    diaryArray?.append(Diary(date: Date(), journal: textFieldText, emoji: "😌", songs: kSadSongs))
-                    self.diaryArray.objectWillChange.send()
-                    self.diaryArray.allDiary.append(Diary(date: Date(), journal: textFieldText, emoji: "😌", songs: kSadSongs))
-                    print(diaryArray.allDiary)
-                    print("Berhasil onappear cok !")
+
+//                    print(diaryArray.allDiary)
+//                    print("Berhasil onappear cok !")
                 }) {
                     Text("Play me some music")
                         .fontWeight(.bold)
@@ -60,6 +79,22 @@ struct AddDiary: View {
             .shadow(radius: 22)
         }
         .navigationBarBackButtonHidden()
+
+    }
+    func analyzeSentiment() {
+        let tagger = NLTagger(tagSchemes: [.sentimentScore])
+        tagger.string = textFieldText
+        
+        let (sentiment, _) = tagger.tag(at: textFieldText.startIndex, unit: .paragraph, scheme: .sentimentScore)
+        score = Double(sentiment?.rawValue ?? "0") ?? 0.0
+        
+        if score >= -1 && score <= -0.3 {
+            sentimentEmoticon = "😔"
+        } else if  score > -0.3 && score <= 0.3 {
+            sentimentEmoticon = "😐"
+        } else {
+            sentimentEmoticon = "😃"
+        }
     }
 }
 

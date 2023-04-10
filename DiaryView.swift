@@ -17,9 +17,10 @@ struct DiaryView: View {
         HStack{
             VStack(alignment: .leading){
                 Text("\(dateDiary)")
-                    .bold()
+                    .padding(.top, 5)
                     .padding(.bottom, -2)
-                
+                    .font(.system(size: 12, weight: Font.Weight.semibold))
+                Spacer()
                 Text(textDiary)
                     .font(.caption2)
                 
@@ -27,6 +28,7 @@ struct DiaryView: View {
             
             VStack(alignment: .trailing){
                 Text("\(emoji)")
+                    .padding(.top, 6)
                 Spacer()
                 Button("View Songs"){
                     

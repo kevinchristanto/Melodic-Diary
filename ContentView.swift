@@ -14,6 +14,8 @@ struct ContentView: View {
                     HStack{
                         Spacer()
                         Text("No Diary")
+                            .bold()
+                            .font(.title)
                         Spacer()
                     }
                 }
@@ -21,12 +23,13 @@ struct ContentView: View {
                 else{
                     List{
                         ForEach(self.diaryArray.allDiary.indices, id: \.self){ index in
-                            DiaryView(textDiary: self.diaryArray.allDiary[index].journal, dateDiary: "\(self.diaryArray.allDiary[index].date)", emoji: self.diaryArray.allDiary[index].emoji)
+                            DiaryView(textDiary: self.diaryArray.allDiary[index].journal, dateDiary: "\(Date.getTodayName(date: self.diaryArray.allDiary[index].date))", emoji: self.diaryArray.allDiary[index].emoji)
                         }
 //                        ForEach(diaryArray.allDiary){diary in
 //                            DiaryView(textDiary: diaryArray.allDiary.)
 //                        }
                     }
+                    .background(Color("yellow"))
                 }
                 
                 Spacer()
@@ -45,19 +48,21 @@ struct ContentView: View {
             
             AddDiary(diaryArray: self.diaryArray)
         }
-        .onAppear(){
-            kSadSongs[0].music.play()
-            
-        }
+//        .onAppear(){
+//            kSadSongs[0].music.play()
+//
+//        }
         .navigationViewStyle(.automatic) //kalau mau diilangin sidebar di swiftplayground
+        
+        .background(Color("yellow"))
         
     }
     
 }
 
 extension Date {
-    static func getTodayName() -> String{
-        let date = Date()
+    static func getTodayName(date: Date) -> String{
+//        let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, dd MMMM yyyy"
         let dayName = dateFormatter.string(from: date)

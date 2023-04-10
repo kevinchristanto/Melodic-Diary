@@ -11,7 +11,7 @@ struct ViewMusic: View {
     @Environment(\.dismiss) private var dismiss
     
     @State public var emoji: String = "😐"
-    
+    @State var songs: [Songs] = []
     
     var body: some View {
         
@@ -22,7 +22,7 @@ struct ViewMusic: View {
             VStack {
                 Text("You seem to be feeling, \(emoji)") //emoji sesuain dengan sentiment score
                     .fontWeight(.bold)
-                    .font(.system(size: 24))
+                    .font(.system(size: 28))
                     .foregroundColor(Color("darkblue"))
                     .padding(.top, 27)
                 
@@ -30,11 +30,21 @@ struct ViewMusic: View {
                     .padding(.horizontal, 20)
                     .padding(.top, -2)
                     .multilineTextAlignment(.center)
-                    .font(.system(size: 12))
+                    .font(.system(size: 18))
                     .foregroundColor(Color("darkblue"))
                     .padding(.bottom, 47)
+                ForEach(0..<songs.count){index in
+                    resultCard(song: songs[index])
+                    
+                }
+//                        ForEach(diaryArray.allDiary){diary in
+//                            DiaryView(textDiary: diaryArray.allDiary.)
+//                        }
+            
+
+//                .background(Color("yellow"))
                 
-                resultCard()
+//                resultCard(song: song)
                 
                 Spacer()
                 
@@ -49,7 +59,7 @@ struct ViewMusic: View {
                     .background(Color("yellow"))
                     .cornerRadius(8)
             }
-        }
+        }.navigationBarBackButtonHidden()
     }
 }
 
@@ -60,6 +70,7 @@ struct ViewMusic_Previews: PreviewProvider {
 }
 
 struct resultCard: View {
+    @State var song: Songs
     var body: some View {
         HStack{
             Image("song-1")
@@ -70,12 +81,12 @@ struct resultCard: View {
             VStack {
                 VStack(alignment: .leading) {
                     
-                    Text("Cheating on you") //song title
+                    Text("\(song.title)") //song title
                         .font(.system(size: 16))
                         .fontWeight(.medium)
                         .padding(.top, 10)
                     
-                    Text("Charlie puth") //song artist
+                    Text("\(song.artist)") //song artist
                         .font(.caption)
                         .fontWeight(.light)
                     
