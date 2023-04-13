@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct ViewMusic: View {
-    @Environment(\.dismiss) private var dismiss
+//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State public var emoji: String = "😐"
     @State var songs: [Songs] = []
+    @StateObject var diaryArray = DiaryModel()
+    
+    
+//    var doBack: () -> ()
     
     var body: some View {
         
@@ -37,27 +41,19 @@ struct ViewMusic: View {
                     resultCard(song: songs[index])
                     
                 }
-//                        ForEach(diaryArray.allDiary){diary in
-//                            DiaryView(textDiary: diaryArray.allDiary.)
-//                        }
-            
-
-//                .background(Color("yellow"))
-                
-//                resultCard(song: song)
-                
                 Spacer()
                 
-                Button() {
-                    dismiss()
-                }label:{
+                NavigationLink(destination: AddDiary(diaryArray: self.diaryArray)) {
                     Text("Back to Homepage")
                         .fontWeight(.bold)
                         .frame(maxWidth: 222, maxHeight: 5)
-                }   .padding()
-                    .foregroundColor(Color("darkblue"))
-                    .background(Color("yellow"))
-                    .cornerRadius(8)
+                    
+//                    self.doBack()
+                }
+                .padding()
+                .foregroundColor(Color("darkblue"))
+                .background(Color("yellow"))
+                .cornerRadius(8)
             }
         }.navigationBarBackButtonHidden()
     }

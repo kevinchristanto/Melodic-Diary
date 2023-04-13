@@ -7,9 +7,10 @@
 
 import Foundation
 import AVKit
+import SwiftUI
 
 struct Songs {
     let title: String
     let artist: String
-    let music: AVAudioPlayer
+    let image: Image
 }

@@ -8,38 +8,57 @@
 import SwiftUI
 
 struct DiaryView: View {
-    
-    @State var textDiary = ""
-    @State var dateDiary = ""
-    @State var emoji = "😊"
+    var diaryData: Diary?
+//
+//    @State var textDiary = ""
+//    @State var dateDiary = ""
+//    @State var emoji = "😊"
     
     var body: some View {
         HStack{
             VStack(alignment: .leading){
-                Text("\(dateDiary)")
-                    .padding(.top, 5)
-                    .padding(.bottom, -2)
+                Text("\(Date.getTodayName(date: diaryData!.date))")
+//                    .padding(.top, 5)
+                    .padding(.bottom, 5)
                     .font(.system(size: 12, weight: Font.Weight.semibold))
-                Spacer()
-                Text(textDiary)
+                    
+//                Spacer()
+                Text(diaryData!.journal)
                     .font(.caption2)
+//                    .frame(width: 150)
+                    .multilineTextAlignment(.leading)
+//                Spacer()
                 
-            }.padding(.bottom, -3)
+            }
+            
+//            .padding(.bottom, -3)
             
             VStack(alignment: .trailing){
-                Text("\(emoji)")
+                Text("\(diaryData!.emoji)")
                     .padding(.top, 6)
                 Spacer()
-                Button("View Songs"){
+                NavigationLink(destination: ViewMusic(emoji: diaryData!.emoji, songs: diaryData!.songs)) {
+                    Text("View Songs")
+                        .fontWeight(.bold)
                     
-                    //navigation link to view-music page
-                    
-                }.padding(3)
-                    .background(Color("darkblue"))
-                    .cornerRadius(3)
-                    .foregroundColor(.white)
-                    .font(.system(size: 10, weight: Font.Weight.semibold))
+//                        .frame(maxWidth: 222, maxHeight: 5)
+                }
+                .padding(3)
+                .background(Color("darkblue"))
+                .cornerRadius(3)
+                .foregroundColor(.white)
+                .font(.system(size: 10, weight: Font.Weight.semibold))
+//                Button("View Songs"){
+//
+//                    //navigation link to view-music page
+//
+//                }.padding(3)
+//                    .background(Color("darkblue"))
+//                    .cornerRadius(3)
+//                    .foregroundColor(.white)
+//                    .font(.system(size: 10, weight: Font.Weight.semibold))
             }
+            .padding(.leading, 10)
         }
         .padding(10)
         .frame(maxWidth: .infinity, maxHeight: 100)
@@ -51,8 +70,8 @@ struct DiaryView: View {
     }
 }
 
-struct CardView_Previews: PreviewProvider {
+struct DiaryView_Previews: PreviewProvider {
     static var previews: some View {
-        DiaryView()
+        DiaryView(diaryData: Diary(date: Date(), journal: "im so happy today ,daksjdklajsl", emoji: "😊", score: 1, songs: kSadSongs))
     }
 }

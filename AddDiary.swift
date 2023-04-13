@@ -19,82 +19,110 @@ struct AddDiary: View {
     @State private var sentimentEmoticon = ""
     
     @State var recommendedSongs: [Songs] = []
-    
+    @State var showResult = false
     
     var body: some View {
-        ZStack{
-            Color("pink100")
-                .ignoresSafeArea()
-            
-            VStack{
+        if showResult{
+            ViewMusic(emoji: analyzeSentiment(textInput: textFieldText), songs: getRecommendationSongs(sentimentScore: score), diaryArray: self.diaryArray)
+        }else {
+            ZStack{
+                Color("pink100")
+                    .ignoresSafeArea()
                 
-                Text("How is your day?")
-                    .font(.system(size: 24))
-                    .fontWeight(.medium)
-                    .foregroundColor(Color("darkblue"))
-
-                TextEditor(text: $textFieldText)
-                    .background(Color.red)
-                    .cornerRadius(5)
-                    .shadow(radius: 1.0)
-                    .frame(width: 260, height: max(30,300))
-                    .padding()
-                    .colorMultiply(Color("grey"))
-                    .onChange(of: textFieldText) { newText in
-                        analyzeSentiment()
-                        self.diaryArray.objectWillChange.send()
-//                        var recommendedSongs = [Songs]()
-                        if score >= -1 && score <= -0.3{
-                            recommendedSongs = kSadSongs
-                        } else if score > -0.3 && score <= 0.3 {
-                            recommendedSongs = kRelaxedSongs
-                        } else {
-                            recommendedSongs = kHappySongs
-                        }
-                        self.diaryArray.allDiary.append(Diary(date: Date(), journal: textFieldText, emoji: sentimentEmoticon, score: score, songs: recommendedSongs))
-                        
-                    }
+                VStack{
                     
-                //append into array
-                //navigate to view-music
-                NavigationLink(destination: ViewMusic(emoji: sentimentEmoticon, songs: recommendedSongs).onAppear(){
-                    // blm ada nlp, emojinya masih hardcode
+                    Text("How is your day?")
+                        .font(.system(size: 24))
+                        .fontWeight(.medium)
+                        .foregroundColor(Color("darkblue"))
 
-//                    print(diaryArray.allDiary)
-//                    print("Berhasil onappear cok !")
-                }) {
-                    Text("Play me some music")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: 222, maxHeight: 5)
+                    TextEditor(text: $textFieldText)
+                        .background(Color.red)
+                        .cornerRadius(5)
+                        .shadow(radius: 1.0)
+                        .frame(width: 260, height: max(30,300))
+                        .padding()
+                        .colorMultiply(Color("grey"))
+                        .onChange(of: textFieldText) { newText in
+                            textFieldText = newText
+                        }
+                        
+                    //append into array
+                    //navigate to view-music
+                    Button(){
+                        showResult = true
+                        appendDiary()
+                        textFieldText = ""
+                    } label: {
+                        Text("Play me some music")
+                            .fontWeight(.bold)
+                            .frame(maxWidth: 222, maxHeight: 5)
+                    }
+                    .padding(10)
+                    .background(Color("darkblue"))
+                    .cornerRadius(11)
+                    .foregroundColor(.white)
+                    .font(.system(size: 14, weight: Font.Weight.semibold))
                 }
-                .padding(10)
-                .background(Color("darkblue"))
+                .frame(width: 309, height: 478)
+                .background(.white)
                 .cornerRadius(11)
-                .foregroundColor(.white)
-                .font(.system(size: 14, weight: Font.Weight.semibold))
+                .shadow(radius: 22)
             }
-            .frame(width: 309, height: 478)
-            .background(.white)
-            .cornerRadius(11)
-            .shadow(radius: 22)
         }
-        .navigationBarBackButtonHidden()
+        
+//        .navigationBarBackButtonHidden()
 
     }
-    func analyzeSentiment() {
+    func analyzeSentiment(textInput: String) -> String {
         let tagger = NLTagger(tagSchemes: [.sentimentScore])
-        tagger.string = textFieldText
+        tagger.string = textInput
         
-        let (sentiment, _) = tagger.tag(at: textFieldText.startIndex, unit: .paragraph, scheme: .sentimentScore)
+        let (sentiment, _) = tagger.tag(at: textInput.startIndex, unit: .paragraph, scheme: .sentimentScore)
         score = Double(sentiment?.rawValue ?? "0") ?? 0.0
         
+        var emotion = ""
+        
         if score >= -1 && score <= -0.3 {
-            sentimentEmoticon = "😔"
+            emotion = "😔"
         } else if  score > -0.3 && score <= 0.3 {
-            sentimentEmoticon = "😐"
+            emotion = "😐"
         } else {
-            sentimentEmoticon = "😃"
+            emotion = "😃"
         }
+        return emotion
+    }
+    
+    func getRecommendationSongs(sentimentScore: Double) -> [Songs]{
+        var songRecommendation: [Songs]
+        // sentiment is sad
+        if sentimentScore >= -1 && sentimentScore <= -0.3{
+            var randomizedSadSongs = kSadSongs
+            randomizedSadSongs.shuffle()
+            songRecommendation = Array(randomizedSadSongs.prefix(5))
+    
+        }
+        // sentiment neutral
+        else if score > -0.3 && score <= 0.3 {
+            var randomizedSadSongs = kRelaxedSongs
+            randomizedSadSongs.shuffle()
+            songRecommendation = Array(randomizedSadSongs.prefix(5))
+            
+        }
+        // sentimen happy
+        else {
+            var randomizedSadSongs = kHappySongs
+            randomizedSadSongs.shuffle()
+            songRecommendation = Array(randomizedSadSongs.prefix(5))
+            
+        }
+        return songRecommendation
+    }
+    
+    func appendDiary() {
+        self.diaryArray.objectWillChange.send()
+//                        var recommendedSongs = [Songs]()
+        self.diaryArray.allDiary.append(Diary(date: Date(), journal: textFieldText, emoji: analyzeSentiment(textInput: textFieldText), score: score, songs: getRecommendationSongs(sentimentScore: score)))
     }
 }
 

@@ -23,25 +23,23 @@ struct ContentView: View {
                 else{
                     List{
                         ForEach(self.diaryArray.allDiary.indices, id: \.self){ index in
-                            DiaryView(textDiary: self.diaryArray.allDiary[index].journal, dateDiary: "\(Date.getTodayName(date: self.diaryArray.allDiary[index].date))", emoji: self.diaryArray.allDiary[index].emoji)
+                            DiaryView(diaryData: diaryArray.allDiary[index])
                         }
-//                        ForEach(diaryArray.allDiary){diary in
-//                            DiaryView(textDiary: diaryArray.allDiary.)
-//                        }
                     }
                     .background(Color("yellow"))
                 }
                 
                 Spacer()
-                
                 NavigationLink(destination: AddDiary(diaryArray: self.diaryArray)) {
                     Text("Tell me about your day")
                         .fontWeight(.bold)
                         .frame(maxWidth: 222, maxHeight: 5)
-                }                .padding()
-                    .foregroundColor(.white)
-                    .background(Color("pink100"))
-                    .cornerRadius(8)
+                }
+                .padding()
+                .foregroundColor(.white)
+                .background(Color("pink100"))
+                .cornerRadius(8)
+                .padding(.bottom, 10)
                 
             }
             .background(Color("yellow"))

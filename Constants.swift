@@ -6,21 +6,52 @@
 //
 
 import Foundation
-import AVFAudio
+import SwiftUI
 
 //let sound =
 
 // Hopeless - Jimena Contreras
 let kSadSongs: [Songs] = [
-    getSongFile(songTitle: "Golden Cage", songArtist: "Untitled", songFileName: "Golden Cage - Jimena Contreras"),
-    getSongFile(songTitle: "Hopeless", songArtist: "Untitled", songFileName: "Hopeless - Jimena Contreras"),
+    //masukin lagu dan image lagu2 sad
+
+    Songs(title: "Separuh Aku", artist: "Noah", image: Image("song-1")),
+    Songs(title: "Kangen", artist: "Dewa 19", image: Image("song-1")),
+    Songs(title: "Happy", artist: "Skinnyfabs", image: Image("song-1")),
+    Songs(title: "Seandainya", artist: "Fiera Besari", image: Image("song-1")),
+    Songs(title: "Lumpuhkan Ingatanku", artist: "Geisha", image: Image("song-1")),
+    Songs(title: "Sial", artist: "Mahalini", image: Image("song-1")),
+    Songs(title: "Usai", artist: "Tiara Andini", image: Image("song-1")),
+    Songs(title: "Peri Cintaku", artist: "Ziva", image: Image("song-1")),
+    Songs(title: "Pupus", artist: "Dewa 19", image: Image("song-1")),
+    Songs(title: "Tak Kan Ada Cinta Yang Lain", artist: "Dewa 19", image: Image("song-1"))
 ]
-let kHappySongs: [Songs] = []
-let kRelaxedSongs: [Songs] = []
-
-func getSongFile(songTitle: String, songArtist: String, songFileName: String) -> Songs{
+let kHappySongs: [Songs] = [
+    //masukin lagu dan image lagu2 happy
     
-    return Songs(title: songTitle, artist: songArtist, music: try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: songFileName, ofType: "mp3")!)))
-}
+    Songs(title: "Separuh Aku", artist: "Noah", image: Image("song-1")),
+    Songs(title: "Kangen", artist: "Dewa 19", image: Image("song-1")),
+    Songs(title: "Happy", artist: "Skinnyfabs", image: Image("song-1")),
+    Songs(title: "Seandainya", artist: "Fiera Besari", image: Image("song-1")),
+    Songs(title: "Lumpuhkan Ingatanku", artist: "Geisha", image: Image("song-1")),
+    Songs(title: "Sial", artist: "Mahalini", image: Image("song-1")),
+    Songs(title: "Usai", artist: "Tiara Andini", image: Image("song-1")),
+    Songs(title: "Peri Cintaku", artist: "Ziva", image: Image("song-1")),
+    Songs(title: "Pupus", artist: "Dewa 19", image: Image("song-1")),
+    Songs(title: "Tak Kan Ada Cinta Yang Lain", artist: "Dewa 19", image: Image("song-1"))
+]
 
+let kRelaxedSongs: [Songs] = [
+    //masukin lagu dan image lagu2 relax
 
+    
+    Songs(title: "Separuh Aku", artist: "Noah", image: Image("song-1")),
+    Songs(title: "Kangen", artist: "Dewa 19", image: Image("song-1")),
+    Songs(title: "Happy", artist: "Skinnyfabs", image: Image("song-1")),
+    Songs(title: "Seandainya", artist: "Fiera Besari", image: Image("song-1")),
+    Songs(title: "Lumpuhkan Ingatanku", artist: "Geisha", image: Image("song-1")),
+    Songs(title: "Sial", artist: "Mahalini", image: Image("song-1")),
+    Songs(title: "Usai", artist: "Tiara Andini", image: Image("song-1")),
+    Songs(title: "Peri Cintaku", artist: "Ziva", image: Image("song-1")),
+    Songs(title: "Pupus", artist: "Dewa 19", image: Image("song-1")),
+    Songs(title: "Tak Kan Ada Cinta Yang Lain", artist: "Dewa 19", image: Image("song-1"))
+]
