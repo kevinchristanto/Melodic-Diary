@@ -23,9 +23,11 @@ struct ContentView: View {
                 else{
                     List{
                         ForEach(self.diaryArray.allDiary.indices, id: \.self){ index in
-                            DiaryView(diaryData: diaryArray.allDiary[index])
+                            DiaryView(diaryData: diaryArray.allDiary[index], doBack: {})
                         }
                     }
+                    .tint(.clear)
+                    .foregroundColor(.black)
                     .background(Color("yellow"))
                 }
                 

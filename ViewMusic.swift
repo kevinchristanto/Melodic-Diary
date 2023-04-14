@@ -37,9 +37,9 @@ struct ViewMusic: View {
                     .font(.system(size: 18))
                     .foregroundColor(Color("darkblue"))
                     .padding(.bottom, 47)
+                
                 ForEach(0..<songs.count){index in
                     resultCard(song: songs[index])
-                    
                 }
                 Spacer()
                 
@@ -47,15 +47,14 @@ struct ViewMusic: View {
                     Text("Back to Homepage")
                         .fontWeight(.bold)
                         .frame(maxWidth: 222, maxHeight: 5)
-                    
-//                    self.doBack()
                 }
                 .padding()
                 .foregroundColor(Color("darkblue"))
                 .background(Color("yellow"))
                 .cornerRadius(8)
+                .navigationBarBackButtonHidden(true)
             }
-        }.navigationBarBackButtonHidden()
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
@@ -69,7 +68,7 @@ struct resultCard: View {
     @State var song: Songs
     var body: some View {
         HStack{
-            Image("song-1")
+            song.image //song artwork
                 .resizable()
                 .frame(width: 50, height: 50)
                 .padding(.leading, 15)
@@ -88,28 +87,11 @@ struct resultCard: View {
                     
                     Spacer()
                 }
-                
-                
             }
-            
             Spacer()
-            
-            VStack {
-                Spacer()
-                Button("Play Music") {
-                    
-                }
-                .padding(3)
-                .background(Color("pink100"))
-                .cornerRadius(3)
-                .foregroundColor(.white)
-                .font(.system(size: 10, weight: Font.Weight.medium))
-                .padding()
             }
-            
+            .frame(width: 310, height: 75)
+            .background(Color(.white))
+            .cornerRadius(11)
         }
-        .frame(width: 310, height: 75)
-        .background(Color(.white))
-        .cornerRadius(11)
     }
-}

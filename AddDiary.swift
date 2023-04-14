@@ -21,6 +21,10 @@ struct AddDiary: View {
     @State var recommendedSongs: [Songs] = []
     @State var showResult = false
     
+    func doBack(){
+        self.showResult = false
+    }
+    
     var body: some View {
         if showResult{
             ViewMusic(emoji: analyzeSentiment(textInput: textFieldText), songs: getRecommendationSongs(sentimentScore: score), diaryArray: self.diaryArray)
