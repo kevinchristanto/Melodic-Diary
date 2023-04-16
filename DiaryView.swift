@@ -51,9 +51,3 @@ struct DiaryView: View {
         .navigationTitle("Melodic Diary")
     }
 }
-
-struct DiaryView_Previews: PreviewProvider {
-    static var previews: some View {
-        DiaryView(diaryData: Diary(date: Date(), journal: "im so happy today ,daksjdklajsl", emoji: "😊", score: 1, songs: kSadSongs), doBack: {})
-    }
-}

@@ -1,9 +1,6 @@
 import SwiftUI
 import NaturalLanguage
 
-
-//var allDiary: [Diary] = []
-
 struct ContentView: View {
     @StateObject var diaryArray = DiaryModel()
     
@@ -48,21 +45,15 @@ struct ContentView: View {
             
             AddDiary(diaryArray: self.diaryArray)
         }
-//        .onAppear(){
-//            kSadSongs[0].music.play()
-//
-//        }
-        .navigationViewStyle(.automatic) //kalau mau diilangin sidebar di swiftplayground
-        
+
+        .navigationViewStyle(.automatic)
         .background(Color("yellow"))
-        
     }
     
 }
 
 extension Date {
     static func getTodayName(date: Date) -> String{
-//        let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, dd MMMM yyyy"
         let dayName = dateFormatter.string(from: date)

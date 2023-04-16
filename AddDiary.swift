@@ -109,7 +109,7 @@ struct AddDiary: View {
             songRecommendation = Array(randomizedSadSongs.prefix(5))
             
         }
-        // sentimen happy
+        // sentiment happy
         else {
             var randomizedSadSongs = kHappySongs
             randomizedSadSongs.shuffle()
@@ -121,13 +121,6 @@ struct AddDiary: View {
     
     func appendDiary() {
         self.diaryArray.objectWillChange.send()
-//                        var recommendedSongs = [Songs]()
         self.diaryArray.allDiary.append(Diary(date: Date(), journal: textFieldText, emoji: analyzeSentiment(textInput: textFieldText), score: score, songs: getRecommendationSongs(sentimentScore: score)))
-    }
-}
-
-struct AddDiary_Previews: PreviewProvider {
-    static var previews: some View {
-        AddDiary()
     }
 }
