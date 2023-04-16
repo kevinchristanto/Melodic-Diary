@@ -1,5 +1,4 @@
 import SwiftUI
-import NaturalLanguage
 
 struct ContentView: View {
     @StateObject var diaryArray = DiaryModel()
