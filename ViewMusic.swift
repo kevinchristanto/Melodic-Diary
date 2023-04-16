@@ -8,14 +8,11 @@
 import SwiftUI
 
 struct ViewMusic: View {
-//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State public var emoji: String = "😐"
     @State var songs: [Songs] = []
     @StateObject var diaryArray = DiaryModel()
     
-    
-//    var doBack: () -> ()
     
     var body: some View {
         
@@ -40,8 +37,20 @@ struct ViewMusic: View {
                 
                 ForEach(0..<songs.count){index in
                     resultCard(song: songs[index])
+                        .padding(5.0)
                 }
-                Spacer()
+                
+                HStack{
+                    Text("Create this playlist on")
+                        .foregroundColor(Color("darkblue"))
+                        .font(.system(size: 20, weight: Font.Weight.semibold))
+                    
+                    Image("apple-music")
+                        .resizable()
+                        .frame(width: 90, height: 50)
+                    
+                }
+                .padding(.vertical, 15)
                 
                 NavigationLink(destination: AddDiary(diaryArray: self.diaryArray)) {
                     Text("Back to Homepage")
@@ -70,28 +79,30 @@ struct resultCard: View {
         HStack{
             song.image //song artwork
                 .resizable()
-                .frame(width: 50, height: 50)
-                .padding(.leading, 15)
+                .frame(width: 75, height: 75)
+                .padding(.trailing, 5)
             
             VStack {
                 VStack(alignment: .leading) {
                     
                     Text("\(song.title)") //song title
-                        .font(.system(size: 16))
+                        .font(.system(size: 20))
                         .fontWeight(.medium)
                         .padding(.top, 10)
                     
                     Text("\(song.artist)") //song artist
-                        .font(.caption)
+                        .font(.system(size: 14))
                         .fontWeight(.light)
+                        .padding(.top, -8)
                     
                     Spacer()
                 }
             }
             Spacer()
             }
-            .frame(width: 310, height: 75)
+            .frame(width: 350, height: 75)
             .background(Color(.white))
             .cornerRadius(11)
+            .shadow(radius: 3.0)
         }
     }

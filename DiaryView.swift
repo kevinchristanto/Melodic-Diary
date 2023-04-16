@@ -9,12 +9,8 @@ import SwiftUI
 
 struct DiaryView: View {
     var diaryData: Diary?
-//
-//    @State var textDiary = ""
-//    @State var dateDiary = ""
-//    @State var emoji = "😊"
-    public var doBack: () -> ()
     
+    public var doBack: () -> ()
     
     var body: some View {
         HStack{
@@ -26,7 +22,7 @@ struct DiaryView: View {
                 Text(diaryData!.journal)
                     .font(.caption2)
                     .multilineTextAlignment(.leading)
-                
+
             }
             
             VStack(alignment: .trailing){
@@ -45,11 +41,12 @@ struct DiaryView: View {
             }
             .padding(.leading, 10)
         }
-        .padding(10)
-        .frame(maxWidth: .infinity, maxHeight: 100)
+        .padding(8)
+        .frame(width: .infinity, height: 80)
         .background(Color(.white))
         .cornerRadius(8)
         .padding(.horizontal, 20)
+        .padding(.bottom, 10)
         .shadow(radius: 5)
         .navigationTitle("Melodic Diary")
     }
