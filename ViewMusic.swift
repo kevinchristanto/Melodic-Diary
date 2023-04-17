@@ -9,19 +9,20 @@ import SwiftUI
 
 struct ViewMusic: View {
     
-    @State public var emoji: String = "😐"
+    @State var emoji: String?
     @State var songs: [Songs] = []
-    @StateObject var diaryArray = DiaryModel()
+    
+    var backToHomepage: () -> ()
     
     
     var body: some View {
-        
         ZStack {
+            
             Color("blue100")
                 .ignoresSafeArea()
             
             VStack {
-                Text("You seem to be feeling, \(emoji)") //emoji sesuain dengan sentiment score
+                Text("You seem to be feeling, \(emoji!)") //emoji sesuain dengan sentiment score
                     .fontWeight(.bold)
                     .font(.system(size: 28))
                     .foregroundColor(Color("darkblue"))
@@ -35,8 +36,8 @@ struct ViewMusic: View {
                     .foregroundColor(Color("darkblue"))
                     .padding(.bottom, 47)
                 
-                ForEach(0..<songs.count){index in
-                    resultCard(song: songs[index])
+                ForEach(0..<songs.count, id: \.self){ index in
+                    resultCard(song: $songs[index])
                         .padding(5.0)
                 }
                 
@@ -51,30 +52,27 @@ struct ViewMusic: View {
                     
                 }
                 .padding(.vertical, 15)
-                
-                NavigationLink(destination: AddDiary(diaryArray: self.diaryArray)) {
+                Button{
+                    backToHomepage()
+                }label: {
                     Text("Back to Homepage")
                         .fontWeight(.bold)
                         .frame(maxWidth: 222, maxHeight: 5)
+                        .padding()
+                        .foregroundColor(Color("darkblue"))
+                        .background(Color("yellow"))
+                        .cornerRadius(8)
                 }
-                .padding()
-                .foregroundColor(Color("darkblue"))
-                .background(Color("yellow"))
-                .cornerRadius(8)
-                .navigationBarBackButtonHidden(true)
             }
-        }.navigationBarBackButtonHidden(true)
-    }
-}
-
-struct ViewMusic_Previews: PreviewProvider {
-    static var previews: some View {
-        ViewMusic()
+        }
+//        .navigationBarBackButtonHidden(true)
+        
+        
     }
 }
 
 struct resultCard: View {
-    @State var song: Songs
+    @Binding var song: Songs
     var body: some View {
         HStack{
             song.image //song artwork
@@ -106,3 +104,9 @@ struct resultCard: View {
             .shadow(radius: 3.0)
         }
     }
+
+struct ViewMusic_Previews: PreviewProvider {
+    static var previews: some View {
+        ViewMusic(emoji: "😊", backToHomepage: {})
+    }
+}

@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Diary {
-//    let id = UUID()
+struct Diary: Identifiable{
+    let id = UUID()
     let date: Date
     let journal: String
     let emoji: String
     let score: Double
-    let songs: [Songs]    
+    let songs: [Songs]
 }
 
 class DiaryModel: ObservableObject {

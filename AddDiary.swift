@@ -9,7 +9,7 @@ import SwiftUI
 import NaturalLanguage
 
 struct AddDiary: View {
-    @StateObject var diaryArray = DiaryModel()
+    @EnvironmentObject var diaryArray: DiaryModel
     
     @State var textFieldText = ""
     
@@ -17,22 +17,15 @@ struct AddDiary: View {
     @State private var sentimentEmoticon = ""
     
     @State var recommendedSongs: [Songs] = []
-    @State var showResult = false
     
-    func doBack(){
-        self.showResult = false
-    }
+    var doViewMusic: () -> ()
+    
     
     var body: some View {
-        if showResult{
-            ViewMusic(emoji: analyzeSentiment(textInput: textFieldText), songs: getRecommendationSongs(sentimentScore: score), diaryArray: self.diaryArray)
-        }else {
             ZStack{
                 Color("pink100")
                     .ignoresSafeArea()
-                
                 VStack{
-                    
                     Text("How is your day?")
                         .font(.system(size: 24))
                         .fontWeight(.medium)
@@ -45,16 +38,12 @@ struct AddDiary: View {
                         .frame(width: 350, height: max(30,300))
                         .padding()
                         .colorMultiply(Color("grey"))
-                        .onChange(of: textFieldText) { newText in
-                            textFieldText = newText
-                        }
-                        
 
-                    Button(){
-                        showResult = true
-                        appendDiary()
-                        textFieldText = ""
-                    } label: {
+                    Button{
+                        let newDiary = Diary(date: Date(), journal: textFieldText, emoji: analyzeSentiment(textInput: textFieldText, emotScore: score), score: score, songs: getRecommendationSongs(sentimentScore: score))
+                        self.diaryArray.allDiary.append(newDiary)
+                        doViewMusic()
+                    }label: {
                         Text("Add to diary")
                             .fontWeight(.bold)
                             .frame(maxWidth: 200, maxHeight: 10)
@@ -71,21 +60,20 @@ struct AddDiary: View {
                 .cornerRadius(11)
                 .shadow(radius: 22)
             }
-        }
     }
     
-    func analyzeSentiment(textInput: String) -> String {
+    func analyzeSentiment(textInput: String, emotScore: Double) -> String {
         let tagger = NLTagger(tagSchemes: [.sentimentScore])
         tagger.string = textInput
         
         let (sentiment, _) = tagger.tag(at: textInput.startIndex, unit: .paragraph, scheme: .sentimentScore)
-        score = Double(sentiment?.rawValue ?? "0") ?? 0.0
+        let emotScore = Double(sentiment?.rawValue ?? "0") ?? 0.0
         
         var emotion = ""
         
-        if score >= -1 && score <= -0.3 {
+        if emotScore >= -1 && emotScore <= -0.3 {
             emotion = "😔"
-        } else if  score > -0.3 && score <= 0.3 {
+        } else if  emotScore > -0.3 && emotScore <= 0.3 {
             emotion = "😐"
         } else {
             emotion = "😃"
@@ -118,9 +106,5 @@ struct AddDiary: View {
         }
         return songRecommendation
     }
-    
-    func appendDiary() {
-        self.diaryArray.objectWillChange.send()
-        self.diaryArray.allDiary.append(Diary(date: Date(), journal: textFieldText, emoji: analyzeSentiment(textInput: textFieldText), score: score, songs: getRecommendationSongs(sentimentScore: score)))
-    }
 }
+

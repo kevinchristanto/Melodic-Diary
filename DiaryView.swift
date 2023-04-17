@@ -9,8 +9,8 @@ import SwiftUI
 
 struct DiaryView: View {
     var diaryData: Diary?
+    var goToViewMusic: (Int) -> ()
     
-    public var doBack: () -> ()
     
     var body: some View {
         HStack{
@@ -29,7 +29,10 @@ struct DiaryView: View {
                 Text("\(diaryData!.emoji)")
                     .padding(.top, 6)
                 Spacer()
-                NavigationLink(destination: ViewMusic(emoji: diaryData!.emoji, songs: diaryData!.songs)) {
+                Button{
+//                    ViewMusic(emoji: diaryData!.emoji, songs: diaryData!.songs)
+                    goToViewMusic(0)
+                }label: {
                     Text("View Songs")
                         .fontWeight(.bold)
                 }
@@ -42,10 +45,10 @@ struct DiaryView: View {
             .padding(.leading, 10)
         }
         .padding(8)
-        .frame(width: .infinity, height: 80)
+        .frame(width: 260, height: 80)
         .background(Color(.white))
         .cornerRadius(8)
-        .padding(.horizontal, 20)
+        .padding(.horizontal, 10)
         .padding(.bottom, 10)
         .shadow(radius: 5)
         .navigationTitle("Melodic Diary")
